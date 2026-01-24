@@ -104,6 +104,7 @@ let
       dosfstools
       mtools
     ];
+    "ext2" = [ e2fsprogs.bin ];
     "ext4" = [ e2fsprogs.bin ];
     "squashfs" = [ squashfsTools ];
     "erofs" = [ erofs-utils ];
