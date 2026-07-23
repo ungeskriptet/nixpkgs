@@ -1,20 +1,20 @@
 {
   lib,
   buildNpmPackage,
-  gnutar,
-  stalwart_0_16,
   fetchFromGitHub,
+  zip,
+  stalwart_0_16,
   nix-update-script,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "webui";
-  version = "1.0.4";
+  version = "1.0.5";
 
   src = fetchFromGitHub {
     owner = "stalwartlabs";
     repo = "webui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-V1g5lzkmO2NadRETwmp7ijEuzG3n83uO+6O1wdlF8G8=";
+    hash = "sha256-kTLAxUI2kf4M6noucX/54fweepO0VlC1QDJZcGaXqJ8=";
   };
 
   npmDepsHash = "sha256-XusIkv2lSwO/FXy+QsLAtcrSwN28SUa07/kj39Mr+u0=";
@@ -27,7 +27,7 @@ buildNpmPackage (finalAttrs: {
     VITE_OAUTH_CLIENT_ID = "stalwart-webui";
   };
 
-  nativeBuildInputs = [ gnutar ];
+  nativeBuildInputs = [ zip ];
   preBuild = ''
     rm .env.development
   '';
@@ -41,8 +41,8 @@ buildNpmPackage (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out
-    tar -czvf $out/webui.tar.gz dist
+    cd dist
+    zip -r "$out" .
     runHook postInstall
   '';
 
