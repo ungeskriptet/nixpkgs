@@ -27123,8 +27123,8 @@ with self;
       wrapProgram $out/bin/nsdiff --prefix PATH : ${
         with pkgs;
         lib.makeBinPath [
+          bind
           dig
-          dnsutils
         ]
       }
       # nsvi requires dig and nsdiff
