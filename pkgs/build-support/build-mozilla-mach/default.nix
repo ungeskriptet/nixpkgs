@@ -102,6 +102,7 @@ in
   pixman,
   zip,
   zlib,
+  libproxy,
   pkgsBuildBuild,
 
   # Darwin
@@ -502,6 +503,9 @@ buildStdenv.mkDerivation {
     "--with-system-webp"
     "--with-system-zlib"
 
+    # Allow Mozilla programs to access system proxy settings
+    "--enable-libproxy"
+
     # These options are not available on MacOS, even --disable-*
     (enableFeature withALSA "alsa")
     (enableFeature withJACK "jack")
@@ -587,6 +591,7 @@ buildStdenv.mkDerivation {
       pixman
       xorgproto
       zlib
+      libproxy
       (if (lib.versionAtLeast version "144") then nss_latest else nss_esr)
     ]
     ++ lib.optional withALSA alsa-lib
